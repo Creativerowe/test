@@ -1,2 +1,2 @@
-# test
+# Design Name Generator
 Testing space
