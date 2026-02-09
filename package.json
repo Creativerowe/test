@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "pid=$(lsof -tiTCP:3000 -sTCP:LISTEN); if [ -n \"$pid\" ]; then kill -9 $pid; fi; next dev",
+    "dev:clean": "pid=$(lsof -tiTCP:3000 -sTCP:LISTEN); if [ -n \"$pid\" ]; then kill -9 $pid; fi; next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
