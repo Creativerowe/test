@@ -121,8 +121,21 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    height: 100svh;
+    width: 100vw;
+    overflow: hidden;
+  }
   body {
     @apply bg-background text-foreground;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+  #__next {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
   }
 }
 

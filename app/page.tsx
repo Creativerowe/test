@@ -392,6 +392,21 @@ export default function Home() {
       }
     }
 
+    const nameKeyword = GIF_KEYWORDS[nextName] ?? nextName;
+    const picked = pickCuratedGif(nameKeyword, lastGifIndexRef.current);
+    if (!picked) {
+      setGifUrl(null);
+      setGifAlt("");
+      setIsGifLoading(false);
+      setGifError("No curated gifs available");
+    } else {
+      lastGifIndexRef.current = picked.index;
+      setGifUrl(picked.url);
+      setGifAlt(picked.alt || nextName);
+      setIsGifLoading(true);
+      setGifError(null);
+    }
+
     setCurrentName(nextName);
     setIsCopied(false);
   };
@@ -494,30 +509,6 @@ export default function Home() {
     document.documentElement.classList.toggle("dark", isDark);
     window.localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [hasMounted, isDark]);
-
-  useEffect(() => {
-    if (!currentName) {
-      setGifUrl(null);
-      setGifAlt("");
-      setIsGifLoading(false);
-      setGifError(null);
-      return;
-    }
-    const nameKeyword = GIF_KEYWORDS[currentName] ?? currentName;
-    const picked = pickCuratedGif(nameKeyword, lastGifIndexRef.current);
-    if (!picked) {
-      setGifUrl(null);
-      setGifAlt("");
-      setIsGifLoading(false);
-      setGifError("No curated gifs available");
-      return;
-    }
-    lastGifIndexRef.current = picked.index;
-    setGifUrl(picked.url);
-    setGifAlt(picked.alt || currentName);
-    setIsGifLoading(true);
-    setGifError(null);
-  }, [currentName]);
 
   useEffect(() => {
     if (!currentName || !containerRef.current) return;
@@ -790,7 +781,7 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-background px-6 py-24 text-foreground sm:py-32 lg:py-36"
+      className="relative h-svh w-screen overflow-hidden bg-background px-6 pt-8 pb-10 text-foreground sm:py-32 lg:py-36"
     >
       <div className="hero-orb hero-orb--left" aria-hidden="true" />
       <div className="hero-orb hero-orb--right" aria-hidden="true" />
@@ -854,7 +845,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="js-name text-5xl font-semibold text-balance leading-[1.05] pb-1 truncate sm:text-6xl lg:text-7xl">
+                <div className="js-name text-4xl font-semibold text-balance leading-[1.05] pb-1 truncate min-[400px]:text-6xl lg:text-7xl">
                   {currentName}
                 </div>
               </div>
