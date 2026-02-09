@@ -360,6 +360,24 @@ const pickCuratedGif = (keyword: string, lastIndex: number | null) => {
   return { ...CURATED_GIFS[index], index };
 };
 
+const preloadGif = (
+  url: string,
+  cache: Map<string, HTMLImageElement>,
+  ready: Set<string>
+) => {
+  if (!url || cache.has(url)) return;
+  const img = new Image();
+  img.decoding = "async";
+  img.loading = "eager";
+  img.onload = () => {
+    ready.add(url);
+  };
+  img.onerror = () => {
+    ready.add(url);
+  };
+  img.src = url;
+  cache.set(url, img);
+};
 
 export default function Home() {
   const [currentName, setCurrentName] = useState<string | null>(null);
@@ -374,6 +392,8 @@ export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   const lastGifIndexRef = useRef<number | null>(null);
+  const gifPreloadRef = useRef<Map<string, HTMLImageElement>>(new Map());
+  const gifReadyRef = useRef<Set<string>>(new Set());
   const generatePulseWrapperRef = useRef<HTMLDivElement>(null);
   const generatePulseRef = useRef<null | {
     kill: () => void;
@@ -400,10 +420,11 @@ export default function Home() {
       setIsGifLoading(false);
       setGifError("No curated gifs available");
     } else {
+      preloadGif(picked.url, gifPreloadRef.current, gifReadyRef.current);
       lastGifIndexRef.current = picked.index;
       setGifUrl(picked.url);
       setGifAlt(picked.alt || nextName);
-      setIsGifLoading(true);
+      setIsGifLoading(!gifReadyRef.current.has(picked.url));
       setGifError(null);
     }
 
@@ -455,6 +476,12 @@ export default function Home() {
       isActive = false;
       gsapRef.current = null;
     };
+  }, []);
+
+  useEffect(() => {
+    CURATED_GIFS.forEach((gif) =>
+      preloadGif(gif.url, gifPreloadRef.current, gifReadyRef.current)
+    );
   }, []);
 
   useEffect(() => {
@@ -821,7 +848,8 @@ export default function Home() {
                           src={gifUrl}
                           alt={gifAlt || "Builder reaction gif"}
                           className="js-gif-media h-full w-full object-cover"
-                          loading="lazy"
+                        loading="eager"
+                        fetchPriority="high"
                           decoding="async"
                           onLoad={handleGifLoad}
                         />

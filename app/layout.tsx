@@ -23,6 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://media.giphy.com" />
+        <link rel="dns-prefetch" href="https://media.giphy.com" />
+        <link rel="preconnect" href="https://media3.giphy.com" />
+        <link rel="dns-prefetch" href="https://media3.giphy.com" />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         {children}
       </body>
