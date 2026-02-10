@@ -205,6 +205,26 @@
   will-change: transform;
 }
 
+@media (max-height: 700px) {
+  .hero-shell {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-card-content {
+    gap: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.5rem, 4vh, 1.75rem);
+  }
+
+  .js-gif-glitch {
+    width: 11.2rem;
+    height: 11.2rem;
+  }
+}
+
 @keyframes hero-float {
   0% {
     transform: translate3d(0, 0, 0);

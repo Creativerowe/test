@@ -808,7 +808,7 @@ export default function Home() {
   return (
     <div
       ref={containerRef}
-      className="relative h-svh w-screen overflow-hidden bg-background px-6 pt-8 pb-10 text-foreground sm:py-32 lg:py-36"
+      className="hero-shell relative h-svh w-screen overflow-x-hidden overflow-y-auto bg-background px-6 pt-8 pb-10 text-foreground sm:py-32 lg:py-36"
     >
       <div className="hero-orb hero-orb--left" aria-hidden="true" />
       <div className="hero-orb hero-orb--right" aria-hidden="true" />
@@ -830,11 +830,11 @@ export default function Home() {
                 aria-hidden="true"
               />
             </div>
-            <CardTitle className="js-animate text-balance font-sans text-[28px] font-medium text-foreground">
+            <CardTitle className="hero-title js-animate text-balance font-sans text-[28px] font-medium text-foreground">
               What type of builder are you?
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center gap-10 text-center sm:gap-12">
+          <CardContent className="hero-card-content flex flex-col items-center gap-10 text-center sm:gap-12">
             {currentName && (
               <div
                 ref={resultRef}
