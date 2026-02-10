@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Silkscreen } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,6 +9,11 @@ const inter = Inter({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
+});
+const silkscreen = Silkscreen({
+  variable: "--font-silkscreen",
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -28,8 +33,17 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://media.giphy.com" />
         <link rel="preconnect" href="https://media3.giphy.com" />
         <link rel="dns-prefetch" href="https://media3.giphy.com" />
+        <link
+          rel="preload"
+          href="/fonts/apercu-medium.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body
+        className={`${inter.variable} ${playfair.variable} ${silkscreen.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

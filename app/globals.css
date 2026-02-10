@@ -48,6 +48,22 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
+@font-face {
+  font-family: "OffBit Bold";
+  src: url("/fonts/new_OffBit-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Apercu Medium";
+  src: url("/fonts/apercu-medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -223,6 +239,20 @@
     width: 11.2rem;
     height: 11.2rem;
   }
+}
+
+.builder-name {
+  font-family:
+    "Apercu Medium",
+    var(--font-silkscreen),
+    var(--font-inter),
+    sans-serif;
+  color: #22863a;
+  text-transform: uppercase;
+}
+
+.dark .builder-name {
+  color: #00ff00;
 }
 
 @keyframes hero-float {

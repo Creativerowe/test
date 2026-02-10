@@ -873,7 +873,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="js-name text-4xl font-semibold text-balance leading-[1.05] pb-1 truncate min-[400px]:text-6xl lg:text-7xl">
+                <div className="builder-name js-name text-4xl font-semibold text-balance leading-[1.05] pb-1 truncate min-[400px]:text-6xl lg:text-7xl">
                   {currentName}
                 </div>
               </div>
