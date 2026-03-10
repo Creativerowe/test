@@ -1,0 +1,36 @@
+# Query: gsap
+# ContextLines: 1
+
+11 results - 3 files
+
+package-lock.json:
+    12          "clsx": "^2.1.1",
+    13:         "gsap": "^3.14.2",
+    14          "lucide-react": "^0.563.0",
+
+  7069      },
+  7070:     "node_modules/gsap": {
+  7071        "version": "3.14.2",
+  7072:       "resolved": "https://registry.npmjs.org/gsap/-/gsap-3.14.2.tgz",
+  7073        "integrity": "sha512-P8/mMxVLU7o4+55+1TCnQrPmgjPKnwkzkXOK1asnR9Jg2lna4tEY5qBJjMmAaOBDDZWtlRjBXjLa0w53G/uBLA==",
+  7074:       "license": "Standard 'no charge' license: https://gsap.com/standard-license."
+  7075      },
+
+package.json:
+  13      "clsx": "^2.1.1",
+  14:     "gsap": "^3.14.2",
+  15      "lucide-react": "^0.563.0",
+
+app/page.tsx:
+   11  import { Button } from "@/components/ui/button";
+   12: import { gsap } from "gsap";
+   13  
+
+   94      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+   95:     const ctx = gsap.context(() => {
+   96:       gsap.from(".js-animate", {
+   97          opacity: 0,
+
+  110      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  111:     gsap.fromTo(
+  112        resultRef.current,

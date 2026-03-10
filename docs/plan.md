@@ -30,12 +30,14 @@ Create a new Next.js app in `/Users/charles_rowe/Build AI Product Sense/design-n
 1. Initialize a new Next.js 14+ app in the `design-name-generator` subfolder using npm with App Router, TypeScript, and Tailwind. Keep the default `app/` structure so the main page lives at `app/page.tsx`.
 2. Install and initialize shadcn/ui, then add the `card` and `button` components.
 3. Implement the UI and behavior in `app/page.tsx`:
-  - Dark-only layout, centered Card, max width around 640px.
-  - H1 and description text exactly as specified.
-  - Generate button (large, primary blue) that picks randomly from 30+ names without repeating the previous name.
-  - Output area hidden until first click; show large generated name and a Copy button.
-  - Subtle Tailwind-only animation on name change (opacity/scale transition).
-  - Clipboard copy with 1.2s “Copied” label, then revert.
+
+- Dark-only layout, centered Card, max width around 640px.
+- H1 and description text exactly as specified.
+- Generate button (large, primary blue) that picks randomly from 30+ names without repeating the previous name.
+- Output area hidden until first click; show large generated name and a Copy button.
+- Subtle Tailwind-only animation on name change (opacity/scale transition).
+- Clipboard copy with 1.2s “Copied” label, then revert.
+
 4. Verify imports and shadcn component usage; ensure `"use client"` is set for state and clipboard access.
 5. Initialize git (if not already), set the remote to the existing repo, commit, and push to `main`.
 

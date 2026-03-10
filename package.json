@@ -2,6 +2,9 @@
   "name": "design-name-generator",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "pid=$(lsof -tiTCP:3000 -sTCP:LISTEN); if [ -n \"$pid\" ]; then kill -9 $pid; fi; next dev",
     "dev:clean": "pid=$(lsof -tiTCP:3000 -sTCP:LISTEN); if [ -n \"$pid\" ]; then kill -9 $pid; fi; next dev",

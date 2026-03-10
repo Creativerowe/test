@@ -7,12 +7,8 @@ import {
   useState,
   type MouseEventHandler,
 } from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import NextImage from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Moon, Sun } from "lucide-react";
@@ -134,7 +130,7 @@ const GIF_KEYWORDS: Record<string, string> = {
   "CI Conductor": "ci",
   "Cloud Cartographer": "cloud",
   "Terminal Tactician": "terminal",
-  "Patchsmith": "patch",
+  Patchsmith: "patch",
   "Refactor Ranger": "refactor",
   "Test Harness Hero": "testing",
   "Binary Bender": "binary",
@@ -358,7 +354,7 @@ const pickCuratedGif = (keyword: string, lastIndex: number | null) => {
 const preloadGif = (
   url: string,
   cache: Map<string, HTMLImageElement>,
-  ready: Set<string>
+  ready: Set<string>,
 ) => {
   if (!url || cache.has(url)) return;
   const img = new Image();
@@ -395,7 +391,7 @@ export default function Home() {
     pause: () => void;
     resume: () => void;
   }>(null);
-  const gsapRef = useRef<null | typeof import("gsap")["gsap"]>(null);
+  const gsapRef = useRef<null | (typeof import("gsap"))["gsap"]>(null);
 
   const handleGenerate = () => {
     let nextName =
@@ -446,7 +442,7 @@ export default function Home() {
     gsap.fromTo(
       event.currentTarget,
       { scale: 1 },
-      { scale: 1.05, duration: 0.2, ease: "back.out(2.6)" }
+      { scale: 1.05, duration: 0.2, ease: "back.out(2.6)" },
     );
   };
 
@@ -475,17 +471,18 @@ export default function Home() {
 
   useEffect(() => {
     CURATED_GIFS.forEach((gif) =>
-      preloadGif(gif.url, gifPreloadRef.current, gifReadyRef.current)
+      preloadGif(gif.url, gifPreloadRef.current, gifReadyRef.current),
     );
   }, []);
 
   useEffect(() => {
-    if (!generatePulseWrapperRef.current) return;
+    const pulseWrapper = generatePulseWrapperRef.current;
+    if (!pulseWrapper) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const startPulse = (gsap: typeof import("gsap")["gsap"]) => {
+    const startPulse = (gsap: (typeof import("gsap"))["gsap"]) => {
       generatePulseRef.current?.kill();
-      generatePulseRef.current = gsap.to(generatePulseWrapperRef.current, {
+      generatePulseRef.current = gsap.to(pulseWrapper, {
         scale: 1.06,
         duration: 0.5,
         ease: "sine.inOut",
@@ -499,7 +496,7 @@ export default function Home() {
       return () => {
         generatePulseRef.current?.kill();
         generatePulseRef.current = null;
-        gsapRef.current?.set(generatePulseWrapperRef.current, { scale: 1 });
+        gsapRef.current?.set(pulseWrapper, { scale: 1 });
       };
     }
 
@@ -514,7 +511,7 @@ export default function Home() {
       isActive = false;
       generatePulseRef.current?.kill();
       generatePulseRef.current = null;
-      gsapRef.current?.set(generatePulseWrapperRef.current, { scale: 1 });
+      gsapRef.current?.set(pulseWrapper, { scale: 1 });
     };
   }, []);
 
@@ -536,12 +533,13 @@ export default function Home() {
     if (!currentName || !containerRef.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const runGlitch = (gsap: typeof import("gsap")["gsap"]) => {
+    const runGlitch = (gsap: (typeof import("gsap"))["gsap"]) => {
       if (!containerRef.current) return null;
       return gsap.context(() => {
         const layers = Array.from(
-          containerRef.current?.querySelectorAll<HTMLElement>(".js-gif-layer") ??
-            []
+          containerRef.current?.querySelectorAll<HTMLElement>(
+            ".js-gif-layer",
+          ) ?? [],
         );
         if (!layers.length) return;
 
@@ -558,7 +556,7 @@ export default function Home() {
           .to(
             layers,
             { opacity: 0, duration: 0.2, ease: "power2.out" },
-            "-=0.08"
+            "-=0.08",
           );
       }, containerRef);
     };
@@ -581,13 +579,13 @@ export default function Home() {
       isActive = false;
       ctx?.revert();
     };
-  }, [gifLoadCount, gifUrl]);
+  }, [currentName, gifLoadCount, gifUrl]);
 
   useLayoutEffect(() => {
     if (!currentName || !containerRef.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const setupPointerTilt = (gsap: typeof import("gsap")["gsap"]) => {
+    const setupPointerTilt = (gsap: (typeof import("gsap"))["gsap"]) => {
       if (!containerRef.current) return null;
       const container = containerRef.current;
       const outer = container.querySelector<HTMLElement>(".js-gif-card");
@@ -721,8 +719,8 @@ export default function Home() {
     }
 
     const runScramble = (
-      gsap: typeof import("gsap")["gsap"],
-      ScrambleTextPlugin: typeof import("gsap/ScrambleTextPlugin")["ScrambleTextPlugin"]
+      gsap: (typeof import("gsap"))["gsap"],
+      ScrambleTextPlugin: (typeof import("gsap/ScrambleTextPlugin"))["ScrambleTextPlugin"],
     ) => {
       if (!resultRef.current) return null;
       const target = resultRef.current.querySelector<HTMLElement>(".js-name");
@@ -791,7 +789,7 @@ export default function Home() {
       gsap.fromTo(
         resultRef.current,
         { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }
+        { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" },
       );
     });
 
@@ -839,13 +837,13 @@ export default function Home() {
                   <div className="js-gif-card flex items-center justify-center rounded-2xl border border-border bg-muted/30 p-3 shadow-sm">
                     <div className="js-gif-glitch size-56 bg-muted sm:size-64">
                       {gifUrl ? (
-                        <img
+                        <NextImage
                           src={gifUrl}
                           alt={gifAlt || "Builder reaction gif"}
                           className="js-gif-media h-full w-full object-cover"
-                        loading="eager"
-                        fetchPriority="high"
-                          decoding="async"
+                          fill
+                          priority
+                          unoptimized
                           onLoad={handleGifLoad}
                         />
                       ) : (

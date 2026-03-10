@@ -243,10 +243,7 @@
 
 .builder-name {
   font-family:
-    "Apercu Medium",
-    var(--font-silkscreen),
-    var(--font-inter),
-    sans-serif;
+    "Apercu Medium", var(--font-silkscreen), var(--font-inter), sans-serif;
   color: #22863a;
   text-transform: uppercase;
 }
